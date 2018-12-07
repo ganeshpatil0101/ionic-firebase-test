@@ -29,8 +29,11 @@
         {{p.title}}
       </button>
     </ion-list>
-    home page....
   </ion-content>
-
+  <ion-footer (click)="logout()">
+    <ion-toolbar color="secondary">
+      <ion-title>Log out</ion-title>
+    </ion-toolbar>
+  </ion-footer>
 </ion-menu>
 <ion-nav [root]="homePage" #content swipeBackEnabled="false"></ion-nav>

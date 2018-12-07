@@ -3,27 +3,32 @@ import 'rxjs/add/operator/toPromise';
 import { AngularFirestore } from 'angularfire2/firestore';
 import * as firebase from 'firebase/app';
 import 'firebase/storage';
-
+import { Observable } from "rxjs/Observable"
 @Injectable()
 export class FirebaseService {
-
+    
   private snapshotChangesSubscription: any;
-  constructor(public afs: AngularFirestore){}
+  constructor(public afs: AngularFirestore){  }
 
-  getTasks(){
-    return new Promise<any>((resolve, reject) => {
+  getDocs(){
       let currentUser = firebase.auth().currentUser;
-      this.snapshotChangesSubscription = this.afs.collection('people').doc(currentUser.uid).collection('tasks').snapshotChanges()
+      return new Observable((observer) => {
+       this.snapshotChangesSubscription = this.afs.collection('product', ref => ref.orderBy('name', 'desc')).snapshotChanges()
       .subscribe(snapshots => {
-        resolve(snapshots);
-      })
+            let data = snapshots.map(action => {
+              const data = action.payload.doc.data() as any;
+              const id = action.payload.doc.id;
+              return { id, ...data };
+            });
+            observer.next(data);
+      });
     });
   }
 
   unsubscribeOnLogOut(){
     //remember to unsubscribe from the snapshotChanges
     // debugger;
-    this.snapshotChangesSubscription.unsubscribe();
+    //this.snapshotChangesSubscription.unsubscribe();
   }
 
   updateTask(taskKey, value){
