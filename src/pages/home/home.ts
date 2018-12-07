@@ -1,6 +1,6 @@
 import { NavController } from 'ionic-angular';
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav } from 'ionic-angular';
 import { ListPage } from '../../pages/list/list';
 import { LoginPage } from '../../pages/login/login';
 import {AuthService} from '../services/auth.service';
