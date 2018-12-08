@@ -7,13 +7,13 @@ import { Observable } from "rxjs/Observable"
 @Injectable()
 export class FirebaseService {
     
-  //private snapshotChangesSubscription: any;
+  private snapshotChangesSubscription: any;
   constructor(public afs: AngularFirestore){  }
 
   getDocs(){
       //let currentUser = firebase.auth().currentUser;
       return new Observable((observer) => {
-       this.afs.collection('product', ref => ref.orderBy('name', 'desc')).snapshotChanges()
+      this.snapshotChangesSubscription = this.afs.collection('product', ref => ref.orderBy('name', 'desc')).snapshotChanges()
       .subscribe(snapshots => {
             let data = snapshots.map(action => {
               const data = action.payload.doc.data() as any;
@@ -28,7 +28,9 @@ export class FirebaseService {
   unsubscribeOnLogOut(){
     //remember to unsubscribe from the snapshotChanges
     // debugger;
-    //this.snapshotChangesSubscription.unsubscribe();
+    if(this.snapshotChangesSubscription) {
+      this.snapshotChangesSubscription.unsubscribe();
+    }
   }
 
   updateTask(taskKey, value){

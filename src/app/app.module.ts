@@ -7,6 +7,7 @@ import { HomePage } from '../pages/home/home';
 import { ListPage } from '../pages/list/list';
 import {LoginPage} from '../pages/login/login';
 import {RegisterPage} from '../pages/register/register';
+import {DashPage} from '../pages/dash/dash';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -26,7 +27,8 @@ import { environment } from '../environments/environment';
     HomePage,
     ListPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    DashPage
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,8 @@ import { environment } from '../environments/environment';
     HomePage,
     ListPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    DashPage
   ],
   providers: [
     StatusBar,

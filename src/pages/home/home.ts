@@ -4,7 +4,7 @@ import { Nav } from 'ionic-angular';
 import { ListPage } from '../../pages/list/list';
 import { LoginPage } from '../../pages/login/login';
 import {AuthService} from '../services/auth.service';
-
+import {DashPage} from '../../pages/dash/dash';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -12,12 +12,12 @@ import {AuthService} from '../services/auth.service';
 export class HomePage {
   @ViewChild(Nav) nav: Nav;
 
-  homePage: any = ListPage;
+  homePage: any = DashPage;
 
   pages: Array<{title: string, component: any}>;
   constructor(public navCtrl: NavController, private authService: AuthService) {
     this.pages = [
-      { title: 'Home', component: HomePage },
+      { title: 'Dash', component: DashPage },
       { title: 'List', component: ListPage }
     ];
   }
