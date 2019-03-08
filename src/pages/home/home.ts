@@ -5,6 +5,7 @@ import { ListPage } from '../../pages/list/list';
 import { LoginPage } from '../../pages/login/login';
 import {AuthService} from '../services/auth.service';
 import {DashPage} from '../../pages/dash/dash';
+import {AuthoPage} from '../../pages/autho/autho';
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
@@ -18,7 +19,8 @@ export class HomePage {
   constructor(public navCtrl: NavController, private authService: AuthService) {
     this.pages = [
       { title: 'Dash', component: DashPage },
-      { title: 'List', component: ListPage }
+      { title: 'List', component: ListPage },
+      {title: 'Authorization', component: AuthoPage}
     ];
   }
   openPage(page) {

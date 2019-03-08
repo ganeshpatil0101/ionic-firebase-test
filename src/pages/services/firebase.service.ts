@@ -8,6 +8,7 @@ import { Observable } from "rxjs/Observable"
 export class FirebaseService {
     
   private snapshotChangesSubscription: any;
+  private snapshotChangesSubautho: any;
   constructor(public afs: AngularFirestore){  }
 
   getDocs(){
@@ -24,12 +25,41 @@ export class FirebaseService {
       });
     });
   }
-
+  getDocsToApprove() {
+    return new Observable((observer) => {
+      this.snapshotChangesSubautho = this.afs.collection('autho').snapshotChanges()
+      .subscribe(snapshots => {
+            let data = snapshots.map(action => {
+              const data = action.payload.doc.data() as any;
+              const id = action.payload.doc.id;
+              return { id, ...data };
+            });
+            observer.next(data);
+      });
+    });
+  }
+  getNewAddedRecord() {
+    return new Observable((observer) => {
+      this.afs.collection('autho').stateChanges([ 'added' ])
+        .subscribe(snap => {
+            let data = snap.map(a => {
+              const data = a.payload.doc.data() as any;
+              const id = a.payload.doc.id;
+              const type = a.type;
+              return { id, type, ...data };
+            });
+            observer.next(data);
+        });
+    });
+  }
   unsubscribeOnLogOut(){
     //remember to unsubscribe from the snapshotChanges
     // debugger;
     if(this.snapshotChangesSubscription) {
       this.snapshotChangesSubscription.unsubscribe();
+    }
+    if(this.snapshotChangesSubautho) {
+      this.snapshotChangesSubautho.unsubscribe();
     }
   }
 

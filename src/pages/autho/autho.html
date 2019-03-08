@@ -1,0 +1,26 @@
+<ion-header>
+  <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+    <ion-title>Authorization</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <button ion-item *ngFor="let item of items" (click)="itemTapped($event, item)">
+      <ion-icon [name]="build" item-start></ion-icon>
+      {{item.title}}
+      <div class="item-note" item-end>
+        {{item.approved}}
+      </div>
+    </button>
+  </ion-list>
+  <div *ngIf="selectedItem.approved" padding>
+    Doc approved on <b>{{selectedItem.date}}</b>
+  </div>
+  <div *ngIf="!selectedItem.approved" padding>
+    Doc is not approved yet..!
+  </div>
+</ion-content>
